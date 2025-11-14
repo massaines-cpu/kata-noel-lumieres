@@ -24,8 +24,8 @@ for instruction in instructions:
     y1 = instruction[2]
     x2 = instruction[3]
     y2 = instruction[4]
-    for x in range(x1,x2+1): #+1 pour faire une boucle
-        for y in range(y1,y2 +1):
+    for y in range(y1,y2+1): #+1 pour faire une boucle
+        for x in range(x1,x2 +1):
             if action=="turn on": # == car on pose une question
                 grille_lights[y][x]=1 #pour allumer
             elif action=="turn off":
@@ -53,20 +53,26 @@ for i in range(taille): #pour 1000 zéro car éteint, j'ai vu qu'on pouvait fair
     ligne=[0]*1000
     grille_lumi.append(ligne)
 #on utilise les memes instructions que l'etape 1
-for x in range(x1,x2+1):
+for instruction in instructions:
+    action = instruction[0] #on récupère l'action pour cette instruction
+    x1 = instruction[1]     #on récupère les coordonnées pour cette instruction
+    y1 = instruction[2]
+    x2 = instruction[3]
+    y2 = instruction[4]
     for y in range(y1,y2+1):
-        lumi=grille_lumi[y][x]
-        if action == "turn on":
+        for x in range(x1,x2+1):
+            lumi=grille_lumi[y][x]
+            if action == "turn on":
             # +1
-            grille_lumi[y][x] = lumi+1
+                grille_lumi[y][x] = lumi+1
 
-        elif action == "turn off":
+            elif action == "turn off":
             #  -1 avec minimum zéro
-            grille_lumi[y][x] = lumi-1
-            if grille_lumi[y][x] < 0:
-                grille_lumi[y][x] = 0  #on passe pas sous zéro
+                grille_lumi[y][x] = lumi-1
+                if grille_lumi[y][x] < 0:
+                    grille_lumi[y][x] = 0  #on passe pas sous zéro
 
-        elif action == "toggle":
+            elif action == "toggle":
                 # +2
                 grille_lumi[y][x] = lumi+2
 lumi_totale = 0
